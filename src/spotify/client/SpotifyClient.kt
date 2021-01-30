@@ -29,7 +29,16 @@ data class SpotifyClient internal constructor(
         body = GetAuthTokenRequestBody(refreshToken = refreshToken).formUrlEncoded
     }
 
+    suspend fun getCurrentlyPlayedTitle(
+        credentials: AccessToken,
+    ) = client.get<String>("$apiBaseUrl$NOW_PLAYING_PATH") {
+        header(HttpHeaders.Authorization, credentials.asAuthHeader)
+        header(HttpHeaders.ContentType, ContentType.Application.FormUrlEncoded)
+    }
+
     companion object Factory {
+        private const val NOW_PLAYING_PATH = "/me/player/currently-playing"
+
         private val jsonWithDefaults = Json { encodeDefaults = true }
 
         fun spotifyClient(
