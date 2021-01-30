@@ -45,6 +45,7 @@ tasks {
 
     withType<KotlinCompile> {
         kotlinOptions {
+            freeCompilerArgs = listOf("-Xopt-in=io.ktor.locations.KtorExperimentalLocationsAPI")
             jvmTarget = "11"
         }
     }
