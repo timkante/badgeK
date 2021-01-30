@@ -9,4 +9,9 @@ data class Track(
     @SerialName("external_ids") val externalIds: ExternalId,
     val popularity: Long,
     @SerialName("is_local") val isLocal: Boolean? = null,
+    val artists: Array<Artist>,
+    @SerialName("duration_ms") val durationInMillis: Long,
+    @SerialName("external_urls") val externalUrls: ExternalUrl,
+    val id: String,
+    val name: String,
 )

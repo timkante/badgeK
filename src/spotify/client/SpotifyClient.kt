@@ -4,10 +4,14 @@ import dev.timkante.badgeK.spotify.client.payloads.AccessToken
 import dev.timkante.badgeK.spotify.client.payloads.CurrentlyPlayingResponse
 import dev.timkante.badgeK.spotify.client.payloads.GetAuthTokenRequestBody
 import io.ktor.client.*
+import io.ktor.client.call.*
 import io.ktor.client.engine.apache.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
+import io.ktor.client.response.*
+import io.ktor.client.statement.*
+import io.ktor.client.statement.HttpResponse
 import io.ktor.http.*
 import kotlinx.serialization.json.Json
 import java.util.*
@@ -32,9 +36,14 @@ data class SpotifyClient internal constructor(
 
     suspend fun getCurrentlyPlayedTitle(
         credentials: AccessToken,
-    ): CurrentlyPlayingResponse = client.get("$apiBaseUrl$NOW_PLAYING_PATH") {
+    ): CurrentlyPlayingResponse = client.get<HttpStatement>("$apiBaseUrl$NOW_PLAYING_PATH") {
         header(HttpHeaders.Authorization, credentials.asAuthHeader)
-    } ?: CurrentlyPlayingResponse()
+    }.execute { response: HttpResponse ->
+        when (response.status) {
+            HttpStatusCode.OK -> response.receive()
+            else -> CurrentlyPlayingResponse()
+        }
+    }
 
     companion object Factory {
         private const val NOW_PLAYING_PATH = "/me/player/currently-playing"
