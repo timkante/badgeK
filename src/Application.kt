@@ -1,6 +1,7 @@
 package dev.timkante.badgeK
 
-import dev.timkante.badgeK.spotify.SpotifyRouting
+import dev.timkante.badgeK.common.modules.registerModule
+import dev.timkante.badgeK.spotify.SpotifyModule
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -18,7 +19,7 @@ fun Application.module(testing: Boolean = false) {
     install(Locations) {}
 
     routing {
-        with(SpotifyRouting) { registerModule() }
+        registerModule(SpotifyModule)
 
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)
