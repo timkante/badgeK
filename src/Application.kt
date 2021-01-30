@@ -2,6 +2,8 @@ package dev.timkante.badgeK
 
 import dev.timkante.badgeK.common.modules.registerModule
 import dev.timkante.badgeK.spotify.SpotifyModule
+import dev.timkante.badgeK.spotify.client.SpotifyClient
+import dev.timkante.badgeK.spotify.client.SpotifyClient.Factory.spotifyClient
 import io.ktor.application.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -15,11 +17,19 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 
 @Suppress("unused") // Referenced in application.conf
 @kotlin.jvm.JvmOverloads
-fun Application.module(testing: Boolean = false) {
+fun Application.module(
+    testing: Boolean = false,
+    spotifyClient: SpotifyClient = spotifyClient(
+        baseUrl = ApplicationConfig.requireProperty("spotify.client.baseUrl"),
+        clientId = ApplicationConfig.requireProperty("spotify.client.clientId"),
+        secret = ApplicationConfig.requireProperty("spotify.client.secret"),
+        refreshToken = ApplicationConfig.requireProperty("spotify.client.refreshToken"),
+    )
+) {
     install(Locations) {}
 
     routing {
-        registerModule(SpotifyModule)
+        registerModule(SpotifyModule(spotifyClient))
 
         get("/") {
             call.respondText("HELLO WORLD!", contentType = ContentType.Text.Plain)

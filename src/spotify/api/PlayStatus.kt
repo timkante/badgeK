@@ -1,5 +1,6 @@
 package dev.timkante.badgeK.spotify.api
 
+import dev.timkante.badgeK.spotify.client.SpotifyClient
 import io.ktor.application.*
 import io.ktor.locations.*
 import io.ktor.locations.get
@@ -11,7 +12,7 @@ import kotlin.text.toByteArray
 data class PlayStatus(val redirect: Boolean = true) {
 
     companion object Routing {
-        fun Route.playStatus() {
+        fun Route.playStatus(client: SpotifyClient) {
             get<PlayStatus> { (redirect) ->
                 call.respondBytes {
                     "Works [redirect=$redirect]".toByteArray()
