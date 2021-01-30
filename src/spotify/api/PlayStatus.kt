@@ -12,7 +12,7 @@ import kotlinx.serialization.json.Json
 import kotlin.text.toByteArray
 
 @Location("/spotify/play-status")
-data class PlayStatus(val redirect: Boolean = true) {
+data class PlayStatus(val redirect: Boolean = false) {
 
     companion object Routing {
         fun Route.playStatus(client: SpotifyClient) {
