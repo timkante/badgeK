@@ -6,6 +6,8 @@ import io.ktor.locations.*
 import io.ktor.locations.get
 import io.ktor.response.*
 import io.ktor.routing.*
+import kotlinx.serialization.encodeToString
+import kotlinx.serialization.json.Json
 import kotlin.text.toByteArray
 
 @Location("/spotify/play-status")
@@ -15,7 +17,7 @@ data class PlayStatus(val redirect: Boolean = true) {
         fun Route.playStatus(client: SpotifyClient) {
             get<PlayStatus> { (redirect) ->
                 call.respondBytes {
-                    "Works [redirect=$redirect]".toByteArray()
+                    Json.encodeToString(client.getAuthToken()).toByteArray()
                 }
             }
         }

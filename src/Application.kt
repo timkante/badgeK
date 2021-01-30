@@ -19,12 +19,15 @@ fun main(args: Array<String>): Unit = io.ktor.server.netty.EngineMain.main(args)
 @kotlin.jvm.JvmOverloads
 fun Application.module(
     testing: Boolean = false,
-    spotifyClient: SpotifyClient = spotifyClient(
-        baseUrl = ApplicationConfig.requireProperty("spotify.client.baseUrl"),
-        clientId = ApplicationConfig.requireProperty("spotify.client.clientId"),
-        secret = ApplicationConfig.requireProperty("spotify.client.secret"),
-        refreshToken = ApplicationConfig.requireProperty("spotify.client.refreshToken"),
-    )
+    spotifyClient: SpotifyClient = with(ApplicationConfig::requireProperty) {
+        spotifyClient(
+            baseUrl = this("spotify.client.baseUrl"),
+            clientId = this("spotify.client.clientId"),
+            secret = this("spotify.client.secret"),
+            refreshToken = this("spotify.client.refreshToken"),
+            authTokenBaseUrl = this("spotify.client.authTokenBaseUrl"),
+        )
+    },
 ) {
     install(Locations) {}
 
@@ -78,7 +81,8 @@ fun Application.module(
 @Location("/location/{name}")
 class MyLocation(val name: String, val arg1: Int = 42, val arg2: String = "default")
 
-@Location("/type/{name}") data class Type(val name: String) {
+@Location("/type/{name}")
+data class Type(val name: String) {
     @Location("/edit")
     data class Edit(val type: Type)
 
