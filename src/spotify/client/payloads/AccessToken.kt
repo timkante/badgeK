@@ -9,4 +9,6 @@ data class AccessToken(
     @SerialName("token_type") val tokenType: String,
     @SerialName("expires_in") val expiresIn: Int,
     val scope: String,
-)
+) {
+    val asAuthHeader: String get() = "$tokenType $accessToken"
+}

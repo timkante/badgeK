@@ -4,13 +4,10 @@ import dev.timkante.badgeK.spotify.client.payloads.AccessToken
 import dev.timkante.badgeK.spotify.client.payloads.GetAuthTokenRequestBody
 import io.ktor.client.*
 import io.ktor.client.engine.apache.*
-import io.ktor.client.features.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
 import io.ktor.http.*
-import io.netty.handler.codec.http.HttpScheme
-import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.*
 
