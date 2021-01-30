@@ -5,8 +5,8 @@ import kotlinx.serialization.Serializable
 
 @Serializable
 data class CurrentlyPlayingResponse(
-    val timestamp: Long,
+    val timestamp: Long = 0,
     @SerialName("progress_ms") val progressInMillis: Long? = null,
-    @SerialName("is_playing") val playing: Boolean,
+    @SerialName("is_playing") val playing: Boolean = false,
     val item: Track? = null,
 )

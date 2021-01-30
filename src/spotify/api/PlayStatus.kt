@@ -17,7 +17,8 @@ data class PlayStatus(val redirect: Boolean = true) {
         fun Route.playStatus(client: SpotifyClient) {
             get<PlayStatus> { (redirect) ->
                 call.respondBytes {
-                    Json.encodeToString(client.getAuthToken()).toByteArray()
+                    val token = client.getAuthToken()
+                    Json.encodeToString(client.getCurrentlyPlayedTitle(token)).toByteArray()
                 }
             }
         }
