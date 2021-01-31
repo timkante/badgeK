@@ -1,0 +1,6 @@
+{
+  "name": "badgeK: a spotify status viewer in kotlin",
+  "description": "A spotify status viewer in kotlin, useable as embedded <img> html",
+  "image": "heroku/java",
+  "addons": [],
+}
