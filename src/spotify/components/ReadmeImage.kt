@@ -47,6 +47,7 @@ data class ReadmeImage(
         }
     }
 
+    // language=scss
     fun mainCssFor(forResponse: CurrentlyPlayingResponse): String = """
             |.paused { 
             |  animation-play-state: paused !important;
