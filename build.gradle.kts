@@ -35,6 +35,10 @@ repositories {
 }
 
 tasks {
+    register("stage"){
+        setDependsOn(listOf(":run"))
+    }
+
     withType<Jar> {
         manifest {
             attributes(
