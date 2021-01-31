@@ -36,7 +36,7 @@ repositories {
 
 tasks {
     register("stage"){
-        setDependsOn(listOf(":run"))
+        setDependsOn(listOf(":build"))
     }
 
     withType<Jar> {
