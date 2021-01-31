@@ -9,7 +9,6 @@ import io.ktor.client.engine.apache.*
 import io.ktor.client.features.json.*
 import io.ktor.client.features.json.serializer.*
 import io.ktor.client.request.*
-import io.ktor.client.response.*
 import io.ktor.client.statement.*
 import io.ktor.client.statement.HttpResponse
 import io.ktor.http.*
@@ -44,6 +43,8 @@ data class SpotifyClient internal constructor(
             else -> CurrentlyPlayingResponse()
         }
     }
+
+    suspend fun fetchImage(url: String) = client.get<ByteArray>(url)
 
     companion object Factory {
         private const val NOW_PLAYING_PATH = "/me/player/currently-playing"
