@@ -153,5 +153,23 @@ data class ReadmeImage(
             |    transform: scaleX(1)
             |  }
             |}
+|
+            |@media (prefers-color-scheme: dark) {
+            |  #cover {
+            |    box-shadow: 0 1px 3px rgb(255,255,255,0.1), 0 3px 7px rgb(255,255,255,0.05);
+            |  }
+            |  #progress {
+            |    background-color: #e1e4e8;
+            |  }
+            |  .progress-bar {
+            |    border: 1px solid #555f69;
+            |  }
+            |  #track {
+            |    color: #e1e4e8 !important;
+            |  }
+            |  #artist {
+            |    color: #555f69 !important;
+            |  }
+            |}
             |""".trimMargin(marginPrefix = "|")
 }
