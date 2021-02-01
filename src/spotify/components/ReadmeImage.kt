@@ -153,6 +153,9 @@ data class ReadmeImage(
             |    transform: scaleX(1)
             |  }
             |}
+            |.mt-4 {
+            |  border: 1px solid red;
+            |}
 |
             |html[data-color-mode="dark"] {
             |  #cover {
