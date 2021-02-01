@@ -70,16 +70,18 @@ data class PlayStatus(val redirect: Boolean = false) {
                                 attributes += "style" to CSSBuilder().apply {
                                     background = "#00d76c"
                                     position = Position.absolute
-                                    width = 100.px
-                                    height = 16.px
+                                    width = 155.px
+                                    height = 20.px
                                     left = 28.px
-                                    top = 8.px
+                                    top = 6.px
                                     zIndex = 1
-                                    fontSize = 9.px
+                                    fontSize = 14.px
                                     textAlign = TextAlign.center
-                                    paddingTop = 2.px
+                                    paddingTop = 1.px
                                     borderTopRightRadius = 10.px
                                     borderBottomRightRadius = 10.px
+                                    fontWeight = FontWeight.w400
+                                    color = Color.white
                                 }.toString()
                                 +"Now playing on Spotify"
                             }
