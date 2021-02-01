@@ -29,7 +29,6 @@ import kotlin.text.toByteArray
 
 @Location("/spotify/play-status")
 data class PlayStatus(val redirect: Boolean = false) {
-
     companion object Routing {
         fun Route.playStatus(client: SpotifyClient) {
             get<PlayStatus> { (redirect) ->
@@ -44,6 +43,11 @@ data class PlayStatus(val redirect: Boolean = false) {
                         Base64.getEncoder().encodeToString(client.fetchImage(location))
                     }
                     val coverImage by lazy { "data:image/jpeg;base64,$imageData" }
+                    val spotifyLogo = "data:image/png;base64,${
+                        Base64.getEncoder().encodeToString(
+                            client.fetchImage("https://1000logos.net/wp-content/uploads/2017/08/Spotify-Logo.png")
+                        )
+                    }"
                     val body = (ReadmeImage(width = 540, height = 92)) {
                         style {
                             style {
@@ -54,7 +58,8 @@ data class PlayStatus(val redirect: Boolean = false) {
                             div {
                                 id = "spotify-logo"
                                 attributes += "style" to CSSBuilder().apply {
-                                    background = "url(https://1000logos.net/wp-content/uploads/2017/08/Spotify-Logo.png) white"
+                                    background = "white"
+                                    backgroundImage = Image("url($spotifyLogo)")
                                     backgroundPosition = "center center"
                                     backgroundSize = "cover"
                                     zIndex = 2
