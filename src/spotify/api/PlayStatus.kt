@@ -16,10 +16,15 @@ import io.ktor.locations.get
 import io.ktor.response.*
 import io.ktor.routing.*
 import kotlinx.css.*
+import kotlinx.css.properties.Angle
+import kotlinx.css.properties.Transform
+import kotlinx.css.properties.Transforms
+import kotlinx.css.properties.rotate
 import kotlinx.html.*
 import kotlinx.serialization.encodeToString
 import kotlinx.serialization.json.Json
 import java.util.*
+import java.util.Collections.rotate
 import kotlin.text.toByteArray
 
 @Location("/spotify/play-status")
@@ -39,36 +44,72 @@ data class PlayStatus(val redirect: Boolean = false) {
                         Base64.getEncoder().encodeToString(client.fetchImage(location))
                     }
                     val coverImage by lazy { "data:image/jpeg;base64,$imageData" }
-                    val body = (ReadmeImage(width = 540, height = 64)) {
+                    val body = (ReadmeImage(width = 540, height = 92)) {
                         style {
                             style {
                                 +mainCssFor(currentSong)
                             }
                         }
                         children {
+                            div {
+                                id = "spotify-logo"
+                                attributes += "style" to CSSBuilder().apply {
+                                    background = "url(https://1000logos.net/wp-content/uploads/2017/08/Spotify-Logo.png) white"
+                                    backgroundPosition = "center center"
+                                    backgroundSize = "cover"
+                                    zIndex = 2
+                                    position = Position.absolute
+                                    borderRadius = 50.pct
+                                    width = 32.px
+                                    height = 32.px
+                                    transform = Transforms().apply { rotate(Angle("-30deg")) }
+                                }.toString()
+                            }
+
+                            div {
+                                attributes += "style" to CSSBuilder().apply {
+                                    background = "#00d76c"
+                                    position = Position.absolute
+                                    width = 100.px
+                                    height = 16.px
+                                    left = 28.px
+                                    top = 8.px
+                                    zIndex = 1
+                                    fontSize = 9.px
+                                    textAlign = TextAlign.center
+                                    paddingTop = 2.px
+                                    borderTopRightRadius = 10.px
+                                    borderBottomRightRadius = 10.px
+                                }.toString()
+                                +"Now playing on Spotify"
+                            }
+
                             div(classes = if (currentSong.playing) "disabled" else "") {
                                 attributes += "style" to CSSBuilder().apply {
                                     display = Display.flex
                                     alignItems = Align.center
                                     paddingTop = 8.px
+                                    paddingRight = 10.px
                                     paddingLeft = 4.px
+                                    marginTop = 16.px
+                                    marginLeft = 16.px
+                                    position = Position.absolute
+                                    top = 0.px
+                                    left = 0.px
+                                    background = "#00a4fd"
+                                    borderTopRightRadius = 30.px
+                                    borderBottomLeftRadius = 30.px
                                 }.toString()
-
-                                textFormatted(
-                                    weight = FontWeights.BOLD,
-                                    size = TextSize.LARGE,
-                                    extraStyles = {
-                                        width = 16.px
-                                        marginRight = 16.px
-                                    },
-                                ) {
-                                    +if (currentSong.playing) "▶" else ""
-                                }
 
                                 img(src = if (imageData != null) coverImage else null) {
                                     width = "48"
                                     height = "48"
                                     id = "cover"
+                                    attributes += "style" to CSSBuilder().apply {
+                                        marginLeft = 14.px
+                                        marginTop = 8.px
+                                        marginBottom = 10.px
+                                    }.toString()
                                 }
 
                                 div {

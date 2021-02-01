@@ -37,6 +37,8 @@ data class ReadmeImage(
                     styleCss {
                         rule("*") {
                             margin(0.px)
+                            fontFamily = "-apple-system,BlinkMacSystemFont,Segoe UI," +
+                                    "Helvetica,Arial,sans-serif,Apple Color Emoji,Segoe UI Emoji"
                             boxSizing = BoxSizing.borderBox
                         }
                     }
@@ -119,8 +121,22 @@ data class ReadmeImage(
             |  box-shadow: 0 1px 3px rgba(0,0,0,0.1), 0 3px 10px rgba(0,0,0,0.05);
             |}
 |
+            |#spotify-logo {
+            |  animation-delay: 500ms;
+            |  animation: spotify-logo-appear 300ms ease-out forwards
+            |}
+|
             |#cover:not([src]) {
             |  box-shadow: none;
+            |}
+|
+            |@keyframes spotify-logo-appear {
+            |  from {
+            |    transform: rotate(0deg);
+            |  }
+            |  to {
+            |    transform: rotate(-30deg);
+            |  }
             |}
 |
             |@keyframes cover-appear {
@@ -151,27 +167,6 @@ data class ReadmeImage(
             |  }
             |  to {
             |    transform: scaleX(1)
-            |  }
-            |}
-            |.mt-4 {
-            |  border: 1px solid red;
-            |}
-|
-            |html[data-color-mode="dark"] {
-            |  #cover {
-            |    box-shadow: 0 1px 3px rgb(255,255,255,0.1), 0 3px 7px rgb(255,255,255,0.05);
-            |  }
-            |  #progress {
-            |    background-color: #e1e4e8;
-            |  }
-            |  .progress-bar {
-            |    border: 1px solid #555f69;
-            |  }
-            |  #track {
-            |    color: #e1e4e8 !important;
-            |  }
-            |  #artist {
-            |    color: #555f69 !important;
             |  }
             |}
             |""".trimMargin(marginPrefix = "|")
