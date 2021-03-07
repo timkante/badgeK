@@ -153,7 +153,7 @@ data class PlayStatus(val redirect: Boolean = false) {
                         }
                     }
 
-                    call.response.header(HttpHeaders.CacheControl, "s-maxage=1, stale-while-revalidate")
+                    call.response.header(HttpHeaders.CacheControl, "no-cache")
                     call.respondText(contentType = ContentType.Image.SVG, status = HttpStatusCode.OK) { body }
                 }
             }
